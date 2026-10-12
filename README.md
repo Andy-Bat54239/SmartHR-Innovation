@@ -582,6 +582,16 @@ ADMIN_PASSWORD='...' ADMIN_TOTP_SECRET='ABCD EFGH ...' ./scripts/run-all.sh     
 Point them elsewhere with `API_BASE=http://host:port`. They need `curl`, `jq` and (for the security suite) `openssl`. Each suite checks its figures as changes against the
 data already there, so it also works on a database that is not empty.
 
+## Working with Git
+
+- **Branches:** `main` always holds working, reviewed code. Do each piece of work on its own branch, named by what it is:
+  `feature/<name>`, `fix/<name>` or `docs/<name>` (for example `feature/mongodb-documents`), and open a pull / merge request into `main` when it is done.
+- **Commits:** small, one idea each, with a message that says what and why, in the form `type(area): summary`
+  (`feat`, `fix`, `docs`, `test`, `refactor`, `chore`). Example: `feat(leave): refuse a request longer than the balance`.
+- **Never commit secrets.** Passwords, the Gmail app password and the Google client secret live in `config/application.properties`
+  (ignored by Git; start from `config/application.properties.example`) or in environment variables. Check `git status` before a commit.
+- **Start:** `git clone <url>`, copy the example config as above, `docker compose up -d` (RabbitMQ), then `./mvnw spring-boot:run` and `cd frontend && npm install && npm run dev`.
+
 ## Notes
 
 - `SmartHR_Documentation.docx` describes the earlier midterm version of the API (numeric ids, `/api/...` routes).

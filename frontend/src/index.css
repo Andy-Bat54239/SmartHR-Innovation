@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@theme {
+  /* the brand: a deep teal. 600 carries white text (4.9:1), 700 is for text links on white */
+  --color-brand-50: #effbf9;
+  --color-brand-100: #d3f4ef;
+  --color-brand-200: #a8e8df;
+  --color-brand-300: #73d5c9;
+  --color-brand-400: #3fbcb0;
+  --color-brand-500: #15a096;
+  --color-brand-600: #0a7f78;
+  --color-brand-700: #0a665f;
+  --color-brand-800: #0c524d;
+  --color-brand-900: #0d4440;
+
+  /* the side menu */
+  --color-navy-700: #124a63;
+  --color-navy-800: #0c3350;
+  --color-navy-900: #0a2342;
+
+  /* chart colours. One hue for a single series (the brand teal) and a neutral grey for "not assigned" / "others". */
+  --color-series: #15a096;
+  --color-series-muted: #c4c7cc;
+  /* The categorical slots, in this fixed order (checked for colour-blind separation, see src/lib/chart.ts). */
+  --color-cat-1: #2a78d6;
+  --color-cat-2: #eb6834;
+  --color-cat-3: #1baf7a;
+  --color-cat-4: #eda100;
+  --color-cat-5: #e87ba4;
+
+  /* the text colour of a change that is good news; dark enough for small text on white */
+  --color-good: #006300;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --shadow-card: 0 1px 2px rgb(16 42 67 / 0.04), 0 6px 20px rgb(16 42 67 / 0.05);
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+  background-color: #f4f7fa;
+}
+
+/* The native <dialog> backdrop */
+dialog::backdrop {
+  background: rgb(15 23 42 / 0.45);
+}
+
+/*
+ * On a phone a wide table becomes a list of cards: every row is a card, every cell a "label  value" line (the label
+ * comes from data-label, which useStackedTables fills in from the column headings). The headings that sort stay
+ * visible as a row of buttons above the cards; the others are hidden. Tablets and desktops keep the normal table.
+ */
+@media (max-width: 767px) {
+  table.stack-table,
+  table.stack-table thead,
+  table.stack-table tbody,
+  table.stack-table tr,
+  table.stack-table th,
+  table.stack-table td {
+    display: block;
+  }
+  table.stack-table thead tr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 1rem;
+    padding: 0.75rem 1rem;
+  }
+  table.stack-table thead th {
+    padding: 0;
+  }
+  table.stack-table thead th:not([aria-sort]) {
+    display: none;
+  }
+  table.stack-table thead tr:has(th[aria-sort])::before {
+    content: 'Sort by';
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  table.stack-table tbody tr {
+    padding: 0.5rem 1rem;
+  }
+  table.stack-table tbody td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.375rem 0;
+    max-width: none;
+    overflow: visible;
+    text-align: right;
+    text-overflow: clip;
+    white-space: normal;
+  }
+  table.stack-table tbody td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-slate-500);
+  }
+  /* the action buttons need the whole line */
+  table.stack-table tbody td[data-label='Actions']::before,
+  table.stack-table tbody td[data-label='']::before {
+    display: none;
+  }
+  table.stack-table tbody td[data-label='Actions'] {
+    justify-content: flex-end;
+    padding-top: 0.75rem;
+  }
+}

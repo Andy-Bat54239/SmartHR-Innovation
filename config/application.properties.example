@@ -1,0 +1,17 @@
+# Copy this file to config/application.properties (that copy is ignored by Git) and fill in what applies to you.
+# Spring Boot reads ./config/application.properties from the folder you start the app in (the project root).
+# Everything here can also be given as an environment variable instead (the names are in src/main/resources/application.properties).
+
+# PostgreSQL
+spring.datasource.username=postgres
+spring.datasource.password=your-database-password
+
+# Email through SMTP, e.g. Gmail with an app password (leave spring.mail.host empty to only log emails)
+spring.mail.host=smtp.gmail.com
+spring.mail.username=you@gmail.com
+spring.mail.password=your-app-password
+smarthr.mail.from=SmartHR <you@gmail.com>
+
+# Sign in with Google (the OAuth client from the Google Cloud console)
+smarthr.google.client-id=your-client-id.apps.googleusercontent.com
+smarthr.google.client-secret=your-client-secret

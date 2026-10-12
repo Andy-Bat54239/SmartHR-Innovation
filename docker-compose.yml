@@ -1,0 +1,19 @@
+# RabbitMQ for local development:  docker compose up -d
+# Management console: http://localhost:15672  (user "guest", password "guest")
+services:
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: smarthr-rabbitmq
+    ports:
+      - "5672:5672"     # the app talks to this
+      - "15672:15672"   # the management console
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+volumes:
+  rabbitmq-data:
